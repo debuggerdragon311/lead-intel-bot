@@ -37,7 +37,7 @@ Everything runs **on your machine**. No API keys. No data leaves your network. N
 
 ## Demo
 
-https://github.com/user-attachments/assets/ss.mp4
+[https://github.com/user-attachments/assets/ss.mp4](https://github.com/user-attachments/assets/466a07c7-1953-48f1-9d40-5b631d08b781)
 
 > **35-second demo** — live run against `cal.com`. The system scrapes, extracts, and presents structured intelligence with no internet-facing services involved.
 >
