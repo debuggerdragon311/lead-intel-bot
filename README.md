@@ -1,13 +1,21 @@
-# LEAD INTEL SYSTEM
+<div align="center">
 
-> **Automated company intelligence extraction — powered by local AI, zero cloud dependency.**
+# ⬛ LEAD INTEL SYSTEM
 
-![Python](https://img.shields.io/badge/Python-3.14t%20GIL--Free-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Ollama](https://img.shields.io/badge/Ollama-Llama%203.2%201B-33ff33?style=for-the-badge&logo=ollama&logoColor=black)
-![Playwright](https://img.shields.io/badge/Playwright-Stealth%20Mode-E2562B?style=for-the-badge&logo=playwright&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-Loopback%20API-grey?style=for-the-badge&logo=flask&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
-![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-8A2BE2?style=for-the-badge&logo=windows&logoColor=white)
+### Automated company intelligence extraction — powered by local AI, zero cloud dependency.
+
+[![Python](https://img.shields.io/badge/Python-3.14t%20GIL--Free-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Ollama](https://img.shields.io/badge/Ollama-Llama%203.2%201B-33ff33?style=for-the-badge&logo=ollama&logoColor=black)](https://ollama.com)
+[![Playwright](https://img.shields.io/badge/Playwright-Stealth%20Mode-E2562B?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev)
+[![Flask](https://img.shields.io/badge/Flask-Loopback%20API-grey?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-8A2BE2?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/debuggerdragon311/lead-intel-bot)
+
+---
+
+**Drop in a domain. Get the founder, tech stack, and value proposition — instantly, offline, free.**
+
+</div>
 
 ---
 
@@ -21,39 +29,83 @@
 
 ---
 
-## What is this?
+## What does it do?
 
-**Lead Intel System** is a fully offline, privacy-first desktop tool that automates competitor and lead research. You give it a list of company names or domains. It spins up a sandboxed headless browser, scrapes public web data, and feeds the raw text to a locally running AI model that extracts three structured intelligence fields per target:
+You give it a company name or domain. It opens a hidden browser, visits the company website, pulls all public text, and runs it through a local AI model — **on your machine, with no API keys, no subscriptions, and no data leaving your network.**
 
-| Field | What it extracts |
+Three fields extracted per target, every time:
+
+| Field | What you get |
 |---|---|
-| **Founder / CEO** | Full name of the company's founder or chief executive |
-| **Tech Stack** | Top 3 technologies or frameworks the company uses |
-| **Value Proposition** | One sentence: the core problem the business solves |
+| **Founder / CEO** | Full name of the founder or chief executive |
+| **Tech Stack** | Top 3 technologies the company is built on |
+| **Value Proposition** | One sentence — the core problem the business solves |
 
-Everything runs **on your machine**. No API keys. No data leaves your network. No subscriptions.
+Results appear live on the dashboard as each target is processed. When done, everything exports to a clean CSV report automatically.
+
+> **Built for sales teams, growth ops, and founders** who need fast competitive intelligence without paying $500/month for tools that do the same thing on a remote server with your data.
 
 ---
 
 ## Demo
 
-[https://github.com/user-attachments/assets/ss.mp4](https://github.com/user-attachments/assets/466a07c7-1953-48f1-9d40-5b631d08b781)
+https://github.com/user-attachments/assets/466a07c7-1953-48f1-9d40-5b631d08b781
 
-> **35-second demo** — live run against `cal.com`. The system scrapes, extracts, and presents structured intelligence with no internet-facing services involved.
+> **35-second demo** — live run against `cal.com`. Scrapes, extracts, and presents structured intelligence with zero internet-facing services.
 >
-> ℹ️ **Can't see the video?** Clone the repo and open `assets/ss.mp4` locally, or [click here to download it](assets/ss.mp4).
+> ℹ️ **Can't see the video?** Clone the repo and open `assets/ss.mp4` locally, or [click here](assets/ss.mp4).
 
 ---
 
-## How It Works — Plain English
+## ⚠️ Before You Run — Required Setup
+
+> **The `extensions/ublock/` directory is intentionally not included in this repository.**
+>
+> The scraper loads **uBlock Origin** into every browser session to block ad networks and tracker requests during extraction. Without it, many target pages will load significantly slower or fail outright due to bloated ad scripts.
+>
+> **You must add the uBlock Origin extension files manually:**
+>
+> 1. Download the uBlock Origin Chromium extension (`.crx` or unpacked folder) from [https://github.com/gorhill/uBlock/releases](https://github.com/gorhill/uBlock/releases)
+> 2. Unpack/extract it into:
+>    ```
+>    extensions/ublock/
+>    ```
+>    The directory should contain `manifest.json` directly at `extensions/ublock/manifest.json`.
+> 3. Continue with the normal installation steps below.
+>
+> If you skip this step, the app will still run — but scraping quality and speed will degrade on ad-heavy pages.
+
+---
+
+## How It Works
 
 ```
-You type a domain → App opens a hidden browser → Searches DuckDuckGo → Visits the company website
-→ Grabs all visible text → Sends it to a local AI model → AI extracts Founder, Tech, and Need
-→ Results appear on the dashboard → Auto-saved to a CSV report
+Input domain
+    │
+    ▼
+Phase A — DuckDuckGo search query for founder / tech info
+    │
+    ▼
+Phase B — Playwright headless browser visits the company landing page
+    │         (uBlock Origin loaded, stealth mode active)
+    ▼
+Raw text payload assembled (title, meta, visible body content)
+    │
+    ▼
+Ollama HTTP inference — Llama 3.2 1B running locally
+    │
+    ▼
+Structured output parsed → Founder / Tech Stack / Value Prop
+    │
+    ▼
+Dashboard updated live → CSV report auto-saved to data/reports/
 ```
 
-The entire pipeline runs concurrently in the background. The dashboard polls for updates every 1.5 seconds and shows live status badges (`QUEUED → SCANNING → AI-EXTRACTING → DONE`) so you always know where each target is in the pipeline.
+The entire pipeline runs concurrently across daemon threads. The dashboard polls every 1.5 seconds and shows live status badges:
+
+```
+QUEUED → SCANNING → AI-EXTRACTING → ✓ DONE
+```
 
 ---
 
@@ -75,7 +127,7 @@ lead-intel-bot/
 │   ├── ollama/models/       # Sandboxed LLM weights
 │   └── reports/             # Auto-generated timestamped CSV reports
 ├── extensions/
-│   └── ublock/              # Packaged uBlock Origin — loaded into every browser session
+│   └── ublock/              # ← ADD uBlock Origin here (see setup warning above)
 ├── assets/
 │   ├── ss.mp4               # Demo video
 │   ├── ss01.png             # Dashboard screenshot
@@ -84,40 +136,35 @@ lead-intel-bot/
 └── requirements.txt
 ```
 
-### Thread Architecture
+### Thread model
 
-The application runs three concurrent OS threads on a GIL-free Python 3.14t runtime:
+The app runs on a **GIL-free Python 3.14t runtime** — the experimental free-threaded build with the Global Interpreter Lock disabled. All shared state is protected by explicit `threading.Lock()` guards, which are required in this mode since standard dict/list mutations are no longer serialized by the interpreter.
 
 ```
-Main Thread          → pywebview GUI loop (owns the process lifetime)
-preflight-worker     → Ollama checks, model download, Chromium install (daemon)
-flask-server         → REST API at 127.0.0.1:1995 (daemon)
-pipeline-worker      → Spawned on demand: scrape + AI loop per execution run (daemon)
+Main Thread        →  pywebview GUI loop (owns process lifetime)
+preflight-worker   →  Ollama health check, model pull, Chromium install  [daemon]
+flask-server       →  REST API at 127.0.0.1:1995                         [daemon]
+pipeline-worker    →  Scrape + AI loop, spawned per execution run        [daemon]
 ```
-
-All shared state is protected by an explicit `threading.Lock()` — required because Python 3.14t runs with the GIL disabled, meaning standard `dict` and `list` mutations are not thread-safe without it.
 
 ---
 
 ## Requirements
 
-### System Requirements
-
 | Requirement | Minimum |
 |---|---|
-| OS | Linux, macOS 12+, or Windows 10/11 |
-| RAM | 4 GB (8 GB recommended for smooth AI inference) |
-| Disk | ~2 GB free (Chromium ~130 MB + Llama 3.2 1B ~1.3 GB) |
+| OS | Linux, macOS 12+, Windows 10/11 |
+| RAM | 4 GB (8 GB recommended) |
+| Disk | ~2 GB (Chromium ~130 MB + Llama 3.2 1B ~1.3 GB) |
 | Python | 3.11+ (3.14t recommended for GIL-free performance) |
-| Network | Required on first run only (to download model + Chromium) |
+| Network | First run only — to download model and Chromium |
 
-### External Dependencies
-
-| Tool | Purpose | Auto-installed? |
+| Dependency | Purpose | Auto-installed? |
 |---|---|---|
-| **Ollama** | Runs the local Llama 3.2 AI model | ❌ Manual (see below) |
-| **Chromium** | Headless browser for scraping | ✅ Auto on first run |
-| **Llama 3.2 1B** | AI extraction model | ✅ Auto on first run |
+| **Ollama** | Local AI runtime | ❌ Manual (see Step 1) |
+| **Chromium** | Headless browser | ✅ Auto on first launch |
+| **Llama 3.2 1B** | Extraction model | ✅ Auto on first launch |
+| **uBlock Origin** | Ad blocking during scrape | ❌ Manual (see warning above) |
 
 ---
 
@@ -125,52 +172,53 @@ All shared state is protected by an explicit `threading.Lock()` — required bec
 
 ### Step 1 — Install Ollama
 
-Ollama is the local AI runtime. Install it from the official site:
-
 ```bash
 # Linux / macOS
 curl -fsSL https://ollama.com/install.sh | sh
 
-# Windows
-# Download the installer from: https://ollama.com/download
+# Windows — download from https://ollama.com/download
 ```
 
-After installing, verify it is running:
+Verify it works:
 
 ```bash
 ollama --version
 ```
 
-You do **not** need to manually pull any model — the application handles that automatically on first launch.
+You do **not** need to pull a model manually — the app handles that on first launch.
 
 ---
 
-### Step 2 — Clone the Repository
+### Step 2 — Add uBlock Origin
+
+See the [⚠️ Required Setup](#️-before-you-run--required-setup) section above before proceeding.
+
+---
+
+### Step 3 — Clone the repository
 
 ```bash
-git clone https://github.com/soumyajit-bala/lead-intel-bot.git
+git clone https://github.com/debuggerdragon311/lead-intel-bot.git
 cd lead-intel-bot
 ```
 
 ---
 
-### Step 3 — Create a Virtual Environment
+### Step 4 — Create a virtual environment
 
 ```bash
-# Create the environment
 python3 -m venv .venv
 
-# Activate it
-# Linux / macOS:
+# Linux / macOS
 source .venv/bin/activate
 
-# Windows (PowerShell):
+# Windows (PowerShell)
 .venv\Scripts\Activate.ps1
 ```
 
 ---
 
-### Step 4 — Install Python Dependencies
+### Step 5 — Install dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -178,74 +226,55 @@ pip install -r requirements.txt
 
 ---
 
-### Step 5 — Run the Application
+### Step 6 — Run
 
 ```bash
 python app.py
 ```
 
-The native desktop window will open. On **first launch**, the system will:
+On **first launch**, the system will:
+1. Verify Ollama is reachable
+2. Pull `llama3.2:1b` (~1.3 GB — one-time only)
+3. Install sandboxed Chromium into `data/ms-playwright/`
 
-1. Check that Ollama is reachable
-2. Pull the `llama3.2:1b` model (~1.3 GB — one-time download)
-3. Install sandboxed Chromium binaries into `data/ms-playwright/`
+Watch the **System Console Feed** panel for real-time progress. The `[ EXECUTE PIPELINE ]` button activates once preflight is complete.
 
-Watch the **System Console Feed** in the bottom-left panel for real-time progress. The `[ EXECUTE PIPELINE ]` button becomes active once setup is complete.
-
-> **First launch takes 2–5 minutes** depending on your internet speed. All subsequent launches start in under 3 seconds.
+> First launch: **2–5 minutes** depending on connection speed. All subsequent launches: **under 3 seconds.**
 
 ---
 
 ## Using the Dashboard
 
-<p align="center">
-  <img src="assets/ss02.png" alt="Dashboard in use" width="90%" />
-</p>
+### Add targets
 
-### 1. Add Targets
-
-Type a company name or domain into the **Target Acquisition** input box and press `[ ADD ]` or hit `Enter`.
+Type a company name or domain into the **Target Acquisition** input and press `[ ADD ]` or `Enter`.
 
 ```
-Examples:
-  cal.com
-  stripe.com
-  notion
-  openai
+cal.com
+stripe.com
+notion
+openai
 ```
 
-Bare names without a `.` are automatically treated as `.com` domains.
+Names without a `.` are automatically treated as `.com` domains.
 
-### 2. Execute the Pipeline
+### Execute the pipeline
 
-Click `[ EXECUTE PIPELINE ]` to start scanning all queued targets.
+Click `[ EXECUTE PIPELINE ]`. Each target moves through:
 
-Each target moves through the following status stages:
-
-| Badge | Meaning |
+| Status | Meaning |
 |---|---|
 | `QUEUED` | Waiting to be processed |
-| `SCANNING` | Browser is live — scraping DuckDuckGo and the company page |
-| `AI-EXTRACT` | Ollama is running inference on the scraped text |
-| `✓ DONE` | Extraction complete — data visible in the table |
-| `⚠ ERROR` | Scraping returned no usable text — target skipped |
+| `SCANNING` | Browser live — scraping DuckDuckGo and the company page |
+| `AI-EXTRACT` | Ollama running inference on scraped text |
+| `✓ DONE` | Extraction complete |
+| `⚠ ERROR` | No usable text found — target skipped |
 
-### 3. Read the Results
+### Export results
 
-Results appear live in the **Extraction Results** table on the right. Columns:
+While the app is running, open `http://127.0.0.1:1995/export/csv` in any browser to download `company_intel_report.csv`.
 
-- **Domain** — The target company URL
-- **Status** — Current pipeline stage
-- **Founder / CEO** — Extracted executive name
-- **Tech Stack** — Top 3 identified technologies
-- **Value Proposition** — One-sentence summary of what the business does
-
-### 4. Export Your Report
-
-Navigate to `http://127.0.0.1:1995/export/csv` in any browser while the app is running to download all current results as a CSV file (`company_intel_report.csv`).
-
-Reports are also **automatically saved** to `data/reports/` after every pipeline run, named by timestamp:
-
+Reports are also auto-saved to `data/reports/` after every run:
 ```
 data/reports/report_20240115-110022.csv
 ```
@@ -254,36 +283,33 @@ data/reports/report_20240115-110022.csv
 
 ## Privacy & Security
 
-- **100% offline inference** — the Llama 3.2 model runs locally via Ollama. No text is sent to any external AI API.
-- **Sandboxed browser** — Playwright Chromium installs into `data/ms-playwright/` and never touches OS-level browser directories.
-- **Sandboxed model weights** — Ollama model files are stored in `data/ollama/models/`, not the system Ollama directory.
-- **Loopback-only API** — The Flask server binds to `127.0.0.1` exclusively. It is unreachable from any other machine on your network.
-- **uBlock Origin loaded** — Every browser session loads a packaged uBlock Origin extension from `extensions/ublock/` to block ad and tracker network requests during scraping.
+- **100% offline inference** — Llama 3.2 runs locally via Ollama. No text is sent to any external AI API.
+- **Sandboxed browser** — Playwright Chromium lives in `data/ms-playwright/`, never touching OS browser directories.
+- **Sandboxed model weights** — Ollama models stored in `data/ollama/models/`, not the system Ollama directory.
+- **Loopback-only API** — Flask binds to `127.0.0.1` exclusively. Not reachable from any other machine.
+- **Ad blocking** — uBlock Origin loaded into every browser session to suppress tracker and ad network requests during scraping.
 
 ---
 
 ## Troubleshooting
 
-**The button stays disabled / "Pre-flight installs are active"**
-> The pre-flight check is still running. Watch the System Console Feed for progress. If it says `Ollama daemon is not reachable`, ensure Ollama is installed and running (`ollama serve` in a separate terminal).
+**Button stays disabled / "Pre-flight installs are active"**
+> Preflight is still running. Watch the Console Feed. If it shows `Ollama daemon is not reachable`, run `ollama serve` in a separate terminal.
 
 **"A scan is already active"**
-> A pipeline is currently running. Wait for all targets to reach `DONE` or `ERROR` status before starting a new run.
+> Wait for all targets to reach `DONE` or `ERROR` before starting a new run.
 
-**Scraping shows `Phase A WARNING: DuckDuckGo query failed`**
-> DuckDuckGo's static HTML endpoint occasionally has slow response times. Phase B (direct page crawl) continues regardless — extraction will still complete if the landing page is reachable.
+**`Phase A WARNING: DuckDuckGo query failed`**
+> DuckDuckGo's static HTML endpoint has occasional slow response times. Phase B (direct page crawl) continues regardless — extraction will still complete if the landing page is reachable.
 
-**The window opens but shows a blank screen**
-> The Flask server may still be starting. Wait 2–3 seconds and refresh. If the issue persists, check that port `1995` is not occupied by another process:
+**Blank screen on launch**
+> Flask may still be starting. Wait 2–3 seconds. If it persists, check port `1995`:
 > ```bash
-> # Linux / macOS
-> lsof -i :1995
+> lsof -i :1995   # Linux / macOS
 > ```
 
-**On Linux: pywebview fails to open**
-> Install the GTK WebKit2 runtime:
+**Linux: pywebview fails to open**
 > ```bash
-> # Debian / Ubuntu
 > sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-3.0 gir1.2-webkit2-4.0
 > ```
 
@@ -293,31 +319,41 @@ data/reports/report_20240115-110022.csv
 
 | Layer | Technology |
 |---|---|
-| Language | Python 3.14t (free-threaded, GIL-disabled) |
+| Language | Python 3.14t — free-threaded, GIL-disabled |
 | Desktop GUI | pywebview (WebKit / EdgeChromium native frame) |
-| Web Scraping | Playwright (async API) + playwright-stealth |
-| AI Inference | Ollama — Meta Llama 3.2 1B (local, quantized) |
-| API Server | Flask (loopback microservice) |
-| Dashboard UI | Vanilla HTML / CSS / JS — CRT phosphor terminal aesthetic |
-| Concurrency | `threading.Lock()` — explicit mutual exclusion (GIL-free safe) |
-| Ad Blocking | uBlock Origin (packaged, loaded into every browser context) |
+| Scraping | Playwright (async) + playwright-stealth |
+| AI Inference | Ollama — Meta Llama 3.2 1B, local, quantized |
+| API | Flask, loopback microservice |
+| Dashboard | Vanilla HTML / CSS / JS — CRT phosphor terminal aesthetic |
+| Concurrency | `threading.Lock()` — explicit mutual exclusion, GIL-free safe |
+| Ad blocking | uBlock Origin, packaged per session |
 
 ---
 
 ## License
 
-This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
+MIT — see [LICENSE](LICENSE).
 
 ---
 
 ## Author
 
+<div align="center">
+
 **Soumyajit Bala**
 
-Built as an exploration of local-first AI tooling, sandboxed desktop application architecture, and GIL-free Python concurrency.
+*Systems engineer. I build automation infrastructure, AI pipelines, and local-first tools.*
+
+[![Email](https://img.shields.io/badge/Email-soumyajit@zelkyr.dev-333?style=for-the-badge&logo=gmail&logoColor=white)](mailto:soumyajit@zelkyr.dev)
+[![GitHub](https://img.shields.io/badge/GitHub-debuggerdragon311-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/debuggerdragon311)
+
+**Need a custom automation pipeline, AI integration, or data extraction system built?**
+Reach out at [soumyajit@zelkyr.dev](mailto:soumyajit@zelkyr.dev)
+
+</div>
 
 ---
 
-<p align="center">
+<div align="center">
   <sub>All inference runs locally. Nothing leaves your machine.</sub>
-</p>
+</div>
