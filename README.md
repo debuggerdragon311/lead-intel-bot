@@ -348,7 +348,7 @@ MIT — see [LICENSE](LICENSE).
 [![GitHub](https://img.shields.io/badge/GitHub-debuggerdragon311-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/debuggerdragon311)
 
 **Need a custom automation pipeline, AI integration, or data extraction system built?**
-Reach out at [soumyajit@zelkyr.dev](mailto:soumyajit@zelkyr.dev)
+Reach out at [soumyajit@zelkyr.dev](mailto:soumyajit@zelkyr.dev) <<
 
 </div>
 
