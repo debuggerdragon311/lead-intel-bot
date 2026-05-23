@@ -2,12 +2,12 @@
 
 > **Automated company intelligence extraction — powered by local AI, zero cloud dependency.**
 
-![Python](https://img.shields.io/badge/Python-3.14t%20(GIL--Free)-33ff33?style=flat-square&logo=python&logoColor=black&labelColor=051a05&color=33ff33)
-![Ollama](https://img.shields.io/badge/AI-Ollama%20%7C%20Llama%203.2-33ff33?style=flat-square&labelColor=051a05&color=33ff33)
-![Playwright](https://img.shields.io/badge/Scraper-Playwright%20%2B%20Stealth-33ff33?style=flat-square&labelColor=051a05&color=33ff33)
-![Flask](https://img.shields.io/badge/Server-Flask%201995-33ff33?style=flat-square&labelColor=051a05&color=33ff33)
-![License](https://img.shields.io/badge/License-MIT-33ff33?style=flat-square&labelColor=051a05&color=33ff33)
-![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-33ff33?style=flat-square&labelColor=051a05&color=33ff33)
+![Python](https://img.shields.io/badge/Python-3.14t%20GIL--Free-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-Llama%203.2%201B-33ff33?style=for-the-badge&logo=ollama&logoColor=black)
+![Playwright](https://img.shields.io/badge/Playwright-Stealth%20Mode-E2562B?style=for-the-badge&logo=playwright&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-Loopback%20API-grey?style=for-the-badge&logo=flask&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-8A2BE2?style=for-the-badge&logo=windows&logoColor=white)
 
 ---
 
@@ -37,15 +37,11 @@ Everything runs **on your machine**. No API keys. No data leaves your network. N
 
 ## Demo
 
-<p align="center">
-  <a href="assets/ss.mp4">
-    <img src="assets/ss01.png" alt="Click to watch demo" width="80%" />
-    <br/>
-    <strong>▶ Watch the full demo (assets/ss.mp4)</strong>
-  </a>
-</p>
+https://github.com/user-attachments/assets/ss.mp4
 
-> The video above shows a live run against `cal.com` — the system scrapes, extracts, and presents structured intelligence in under 90 seconds with no internet-facing services involved.
+> **35-second demo** — live run against `cal.com`. The system scrapes, extracts, and presents structured intelligence with no internet-facing services involved.
+>
+> ℹ️ **Can't see the video?** Clone the repo and open `assets/ss.mp4` locally, or [click here to download it](assets/ss.mp4).
 
 ---
 
